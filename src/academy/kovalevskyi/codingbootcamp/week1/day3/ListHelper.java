@@ -149,4 +149,17 @@ public class ListHelper {
         return mapNode;
     }
 
+    public static <T> ListNode<T> insertAfter(ListNode<T> prev, T newValue) {
+        if (prev == null) {
+            throw new NullPointerException();
+        }
+        if (prev.getNext() == null) {
+            return addToEnd(prev, newValue);
+        }
+        ListNode<T> insertNode = new ListNode<>(prev, prev.getNext(), newValue);
+        prev.getNext().setPrev(insertNode);
+        prev.setNext(insertNode);
+
+        return insertNode;
+    }
 }
