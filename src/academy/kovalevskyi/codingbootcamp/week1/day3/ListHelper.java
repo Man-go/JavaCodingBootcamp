@@ -1,13 +1,15 @@
 package academy.kovalevskyi.codingbootcamp.week1.day3;
 
+import java.util.List;
+
 public class ListHelper {
 
     public static <T> ListNode<T> findFirst(ListNode<T> someNode) {
         if (someNode.getPrev() == null) {
             return someNode;
         }
-        ListNode<T> result = someNode.getPrev();
-        while (result != null) {
+        ListNode<T> result = someNode;
+        while (result.getPrev() != null) {
             result = result.getPrev();
         }
 
@@ -85,5 +87,39 @@ public class ListHelper {
             lastElement.setNext(node);
         }
         return node;
+    }
+
+    public static <T> ListNode<T> addToStart(ListNode<T> someNode, T newValue) {
+        if (someNode == null) {
+            throw new NullPointerException();
+        }
+        ListNode<T> firstElement = findFirst(someNode);
+        ListNode<T> node = new ListNode<>(null, firstElement, newValue);
+        firstElement.setPrev(node);
+
+        return node;
+    }
+
+    public static <T> boolean contains(ListNode<T> someNode, T value) {
+        boolean isContains = false;
+        if (someNode == null) {
+            throw new NullPointerException();
+        }
+        ListNode<T> left = someNode;
+        while (left.getPrev() != null) {
+            if (left.getPrev().getValue().equals(value)) {
+                return true;
+            }
+            left = left.getPrev();
+        }
+
+        ListNode<T> right = someNode;
+        while (right.getNext() != null) {
+            if (right.getNext().getValue().equals(value)) {
+                return true;
+            }
+            right = right.getNext();
+        }
+        return someNode.getValue().equals(value);
     }
 }
