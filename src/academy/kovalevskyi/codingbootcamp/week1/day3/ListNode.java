@@ -34,9 +34,9 @@ public class ListNode<T> {
     @Override
     public String toString() {
         return "Node{"
-                + "prevValue=" + (this.prev == null ? null : this.prev.getValue())
-                + ", nextValue=" + (this.next == null ? null : this.next.getValue())
-                + ", thisValue=" + (this.value  == null ? null : this.value)
+                + "prevValue=" + (prev == null ? null : prev.value)
+                + ", nextValue=" + (next == null ? null : next.value)
+                + ", thisValue=" + value
                 + '}';
     }
 }
