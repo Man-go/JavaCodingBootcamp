@@ -1,6 +1,6 @@
 package academy.kovalevskyi.codingbootcamp.week1.day3;
 
-import java.util.List;
+import java.util.function.Function;
 
 public class ListHelper {
 
@@ -101,7 +101,6 @@ public class ListHelper {
     }
 
     public static <T> boolean contains(ListNode<T> someNode, T value) {
-        boolean isContains = false;
         if (someNode == null) {
             throw new NullPointerException();
         }
@@ -122,4 +121,32 @@ public class ListHelper {
         }
         return someNode.getValue().equals(value);
     }
+
+    public static <T, R> ListNode<R> map(ListNode<T> someNode, Function<T, R> mapFunction) {
+        if (someNode == null) {
+            throw new NullPointerException();
+        }
+        R valueAfterFunction = mapFunction.apply(someNode.getValue());
+        ListNode<R> mapNode = new ListNode<>(null, null, valueAfterFunction);
+
+        ListNode<T> left = someNode;
+        ListNode<R> shiftNodeLeft = mapNode;
+        while (left.getPrev() != null) {
+            left = left.getPrev();
+            ListNode<R> currenNode = new ListNode<>(null, shiftNodeLeft, mapFunction.apply(left.getValue()));
+            shiftNodeLeft.setPrev(currenNode);
+            shiftNodeLeft = currenNode;
+        }
+
+        ListNode<T> right = someNode;
+        ListNode<R> shiftNodeRight = mapNode;
+        while (right.getNext() != null) {
+            right = right.getNext();
+            ListNode<R> currenNode = new ListNode<>(shiftNodeRight, null, mapFunction.apply(right.getValue()));
+            shiftNodeRight.setNext(currenNode);
+            shiftNodeRight = currenNode;
+        }
+        return mapNode;
+    }
+
 }
