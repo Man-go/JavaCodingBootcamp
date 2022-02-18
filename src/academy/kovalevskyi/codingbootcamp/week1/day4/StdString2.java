@@ -42,61 +42,59 @@ public class StdString2 extends StdString1 {
     }
 
     public StdString2 concat(StdString2... that) {
-        char[][] interArr = new char[][];
+        if (that == null) {
+            throw new NullPointerException();
+        }
+        StdString1 result = new StdString1(this.toCharArray());
         for (int i = 0; i < that.length; i++) {
-            for (int j = 0; j < that[i].length(); j++) {
-                interArr[i][j] = that[i].charAt(j);
+            if (that[i].length() != 0) {
+                result = result.append(that[i]);
             }
         }
-        return new StdString2(StringUtils.concatStrings(interArr));
+        return new StdString2(result.toCharArray());
     }
 
     public StdString2[] split(char separator) {
-        int totalSeparators = 0;
-        for (int i = 0; i < this.length(); i++) {
-            if (this.charAt(i) == separator) {
-                totalSeparators++;
-            }
+        StdString2 str = new StdString2(this);
+        int to = 0;
+        int len = str.length();
+        while (str.charAt(len - 1) == separator && to < len) {
+            len--;
         }
-        if (totalSeparators == 0) {
-            return new StdString2[]{this};
-        }
-
+        str = subString(to, len);
+        StdString2[] result = new StdString2[str.length()];
         int counter = 0;
-        int startIndex = 0;
-        StdString2[] result = new StdString2[totalSeparators + 1];
-        for (int i = 0; i < this.length(); i++) {
-            if (this.charAt(i) == separator) {
-                result[counter++] = subString(startIndex, i);
-                startIndex = i + 1;
-            }
+        while ((to = str.indexOf(separator)) != -1 ) {
+            int from = 0;
+            result[counter++] = str.subString(from, to);
+            str = str.subString(to + 1, str.length());
         }
-        return result;
+        if (str.length() > 0) {
+            result[counter] = str;
+        }
+        StdString2[] rsl = new StdString2[counter + 1];
+        System.arraycopy(result, 0, rsl, 0, rsl.length);
+        return rsl;
     }
 
     public StdString2 trim() {
-        int indexLastLeftSpace = 0;
-        int indexLastRightSpace = this.length() - 1;
+        StdString2 str = new StdString2(this);
+        int from = 0;
+        int to = str.length();
 
-        for (int i = 0; i < this.length(); i++) {
-            if (this.charAt(i) != ' ') {
-                indexLastLeftSpace = i;
-                break;
-            }
+        while (from < to && str.charAt(from) <= ' ') {
+            from++;
         }
-        for (int i = this.length() - 1; i >= 0; i--) {
-            if (this.charAt(i) != ' ') {
-                indexLastRightSpace = i;
-            }
+        while (from < to && str.charAt(to - 1) <= ' ') {
+            to--;
         }
-        return this.subString(indexLastLeftSpace, indexLastRightSpace);
+        if (from == 0 && to == str.length()) {
+            return str;
+        }
+        return str.subString(from, to);
     }
 
     public StdString2 removeCharacter(char toRemove) {
-        int index = this.indexOf(toRemove);
-        if (index == -1) {
-            return this;
-        }
-
+        return this.length() == 0 ? new StdString2() : new StdString2().concat(split(toRemove));
     }
 }
