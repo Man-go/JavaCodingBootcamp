@@ -162,4 +162,14 @@ public class ListHelper {
 
         return insertNode;
     }
+
+    public static <T> void insertAfter(ListNode<T> prev, T[] newValues) {
+        if (prev == null || newValues == null) {
+            throw new NullPointerException();
+        }
+        ListNode<T> tempNode = prev;
+        for (T newValue : newValues) {
+            prev = insertAfter(prev, newValue);
+        }
+    }
 }
