@@ -169,7 +169,34 @@ public class ListHelper {
         }
         ListNode<T> tempNode = prev;
         for (T newValue : newValues) {
-            prev = insertAfter(prev, newValue);
+            tempNode = insertAfter(tempNode, newValue);
         }
+    }
+
+    public static <T> T delete(ListNode<T> current) {
+        if (current == null) {
+            throw new NullPointerException();
+        }
+        if (current.getNext() == null && current.getPrev() == null) {
+            return current.getValue();
+        }
+        if (current.getNext() == null) {
+            current.getPrev().setNext(null);
+            current.setPrev(null);
+
+            return current.getValue();
+        }
+        if (current.getPrev() == null) {
+            current.getNext().setPrev(null);
+            current.setNext(null);
+
+            return current.getValue();
+        }
+        current.getPrev().setNext(current.getNext());
+        current.getNext().setPrev(current.getPrev());
+        current.setNext(null);
+        current.setPrev(null);
+
+       return current.getValue();
     }
 }
