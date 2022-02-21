@@ -9,7 +9,7 @@ public class MainPrintReversedParam {
             return;
         }
         for (int i = 0; i < len ; i++) {
-            System.out.println(len - 1 - i);
+            System.out.println(args[len - 1 - i]);
         }
     }
 }
