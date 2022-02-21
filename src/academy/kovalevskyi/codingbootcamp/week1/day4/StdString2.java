@@ -18,13 +18,13 @@ public class StdString2 extends StdString1 {
     }
 
     public StdString2 toAsciiLowerCase() {
-        return new StdString2(StringUtils.
-                makeLowercase(this.toCharArray()).toString().toCharArray());
+        return new StdString2(StringUtils.makeLowercase(this.toCharArray())
+                .toString().toCharArray());
     }
 
     public StdString2 toAsciiUpperCase() {
-        return new StdString2(StringUtils.
-                makeUppercase(this.toCharArray()).toString().toCharArray());
+        return new StdString2(StringUtils.makeUppercase(this.toCharArray())
+                .toString().toCharArray());
     }
 
     public StdString2 subString(int from, int to) {
