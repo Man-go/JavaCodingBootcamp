@@ -11,20 +11,20 @@ public class TextPrinter1 {
                     "Please provide only one input argument, current amount: " + args.length);
             return;
         }
-        String result = createMessageInBox(args[0], NUMBER_OF_MESSAGE_IN_BOX);
+        String result = createMessageInBox("/", "\\", "#", args[0], NUMBER_OF_MESSAGE_IN_BOX);
         System.out.println(result);
     }
 
-    private static String createMessageInBox(String message, int height) {
+    public static String createMessageInBox(String connerLeft, String connerRight, String border, String message, int height) {
         int len = message.length() + 4;
         StringBuilder result = new StringBuilder();
-        result.append(BoxGenerator.strByTypeElem("/","\\","#", len));
+        result.append(BoxGenerator.strByTypeElem(connerLeft,connerRight,border, len));
         result.append("\n");
         for (int i = 0; i < height; i++) {
-            result.append(BoxGenerator.strByTypeElem("# ", " #", message, 3));
+            result.append(BoxGenerator.strByTypeElem(border + " ", " "+ border, message, 3));
             result.append("\n");
         }
-        result.append(BoxGenerator.strByTypeElem("\\","/","#", len));
+        result.append(BoxGenerator.strByTypeElem(connerRight,connerLeft,border, len));
         return result.toString();
     }
 }
