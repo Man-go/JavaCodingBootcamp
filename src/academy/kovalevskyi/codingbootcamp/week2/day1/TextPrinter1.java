@@ -8,7 +8,7 @@ public class TextPrinter1 {
 //        args = new String[]{"test in the box"};
         if (args.length != 1) {
             System.out.println(
-                    "Please provide only one input argument, current amount: " + args.length);
+                    "pLeAsE PrOvIdE OnLy oNe iNpUt aRgUmEnT, cUrReNt aMoUnT: " + args.length);
             return;
         }
         String result = createMessageInBox("/", "\\", "#", args[0], NUMBER_OF_MESSAGE_IN_BOX);

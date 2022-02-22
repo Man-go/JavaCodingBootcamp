@@ -5,7 +5,7 @@ import academy.kovalevskyi.codingbootcamp.week1.day2.StringUtils;
 public class BoxGenerator {
 
     public static void main(String[] args) {
-//        args = new String[]{"6", "4", "-", "#"};
+        args = new String[]{"7", "5", "?", "#"};
         if (args.length != 4) {
             System.out.println("Please provide 4 input arguments, current amount: " + args.length);
             return;
@@ -18,7 +18,7 @@ public class BoxGenerator {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException();
         }
-        if (args[2].length() != 1 || args[3].length() != 1) {
+        if (args[2].length() != 1 || args[3].length() != 1 || width < 0 || height < 0) {
             throw new IllegalArgumentException();
         }
         String wallStr = args[2];
@@ -38,13 +38,17 @@ public class BoxGenerator {
     private static String createBox(int len, int height, String wallStr, String conner) {
         StringBuilder stringValue = new StringBuilder();
         stringValue.append(strByTypeElem(conner, conner, wallStr, len));
-        stringValue.append("\n");
         for (int i = 0; i < height - 2; i++) {
-            stringValue.append(strByTypeElem(wallStr, wallStr, " ", len));
             stringValue.append("\n");
+            stringValue.append(strByTypeElem(wallStr, wallStr, " ", len));
+//            stringValue.append("\n");
         }
-        stringValue.append(strByTypeElem(conner, conner, wallStr, len));
+        if (height > 1) {
+            stringValue.append("\n");
+            stringValue.append(strByTypeElem(conner, conner, wallStr, len));
+        }
         return stringValue.toString();
+
     }
 
 }

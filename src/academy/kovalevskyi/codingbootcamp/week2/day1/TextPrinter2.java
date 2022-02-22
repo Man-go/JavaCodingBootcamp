@@ -8,11 +8,13 @@ public class TextPrinter2 {
 //        args = new String[]{"?", "test"};
         if (args.length != 2) {
             System.out.println(
-                    "Please provide only one input argument, current amount: " + args.length);
+                    "Please provide 2 input arguments, current amount: " + args.length);
             return;
         }
-        if (args[0].length() != 1) {
-            throw new IllegalArgumentException();
+        if (args[0].length() > 1) {
+            System.out.println(
+                    "First argument length should be 0 or 1, now it is: " + args[0].length());
+            return;
         }
         String border = args[0];
         String result = TextPrinter1.createMessageInBox(border, border, border, args[1], NUMBER_OF_MESSAGE_IN_BOX);
